@@ -9,9 +9,9 @@
 #define mqSensorPin     0 // A0
 #define rfTxPin         13  // Pin of the 433MHz transmitter
 
-#define rfTxBaudrate    ( uint8_t ) 2000 // Transmission Speed
-#define LIGHTS_ON       ( uint8_t[] ) 262231
-#define LIGHTS_OFF      ( uint8_t[] ) 262236
+#define rfTxBaudrate    2000 // Transmission Speed
+#define LIGHTS_ON       262231
+#define LIGHTS_OFF      262236
 
 void Core0( void * parameter ) 
 {
