@@ -10,8 +10,8 @@
 #define rfTxPin         13  // Pin of the 433MHz transmitter
 
 #define rfTxBaudrate    ( uint8_t ) 2000 // Transmission Speed
-#define LIGHTS_ON       ( const uint8_t* ) 262231
-#define LIGHTS_OFF      ( const uint8_t* ) 262236
+#define LIGHTS_ON       ( uint8_t[] ) 262231
+#define LIGHTS_OFF      ( uint8_t[] ) 262236
 
 void Core0( void * parameter ) 
 {
@@ -30,13 +30,15 @@ void Core0( void * parameter )
         if( distance > 5 )
         {
             Serial.println( "lights off" );
-            rfTx->transmit( LIGHTS_OFF );
+            uint8_t data[] = "262236";
+            rfTx->transmit( data );
         }
 
         else
         {
             Serial.println( "lights on" );
-            rfTx->transmit( LIGHTS_ON );
+            uint8_t data[] = "262231";
+            rfTx->transmit( data );
         }
 
         // Serial.print("Distance: ");

@@ -1,19 +1,21 @@
 #include <transmitter.h>
 
 Transmitter::Transmitter( uint8_t pin, uint8_t baudrate ) :
-    _driver( baudrate, -1, _pin ),
+    _manager( _driver, 4 ),
     _pin( pin ),
-    success( true )
+    success( false )
 {   
-    if( !_driver.init( ) )
+    if( _manager.init( ) )
     {
-        Serial.println( "RF433MHZ Transmitter Driver initialization failed!" );
-        success = false;
+        Serial.println( "RF433MHZ Transmitter Driver initialization success!" );
+        success = true;
+
+        _manager.addRouteTo(1, 1);
     }
 }
 
-void Transmitter::transmit( const uint8_t *msg ) 
+void Transmitter::transmit( uint8_t data[] ) 
 {
-    _driver.send( msg, 6 );
-    _driver.waitPacketSent();
+    if(_manager.sendtoWait( data, sizeof( data ), 326) != RH_ROUTER_ERROR_NONE)
+        Serial.println("sendtoWait failed");
 }
