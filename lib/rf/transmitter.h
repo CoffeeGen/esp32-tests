@@ -2,21 +2,19 @@
 #define TRANSMITTER_H
 
 #include <Arduino.h>
-#include <RH_E32.h>
-#include "SoftwareSerial.h"
+#include <RH_ASK.h>
 #include <SPI.h>
 
 class Transmitter 
 {
     public:
-        Transmitter( uint8_t pin, uint8_t baudrate );
-        void transmit( uint8_t data[] );
+        Transmitter( int pin, int baudrate );
+        void transmit( const char* message );
         bool success;
 
     private:
-        uint8_t _pin;
-        RH_E32  _driver;
-        SoftwareSerial _serial;
+        int _pin;
+        RH_ASK  _driver;
 };
 
 #endif

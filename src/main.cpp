@@ -2,14 +2,14 @@
 #include <init.h>
 #include <globals.h>
 
-#define echoPin         23 // 2
+#define echoPin         4 // 2
 #define trigPin         22 // 3
 #define greenLedPin     21 // 4
 #define redLedPin       5  // 7
 #define mqSensorPin     0 // A0
-#define rfTxPin         13  // Pin of the 433MHz transmitter
+#define rfTxPin         23  // Pin of the 433MHz transmitter
 
-#define rfTxBaudrate    2000 // Transmission Speed
+#define rfTxBaudrate    326 // Transmission Speed
 #define LIGHTS_ON       262231
 #define LIGHTS_OFF      262236
 
@@ -30,15 +30,13 @@ void Core0( void * parameter )
         if( distance > 5 )
         {
             Serial.println( "lights off" );
-            uint8_t data[] = "262236";
-            rfTx->transmit( data );
+            rfTx->transmit( "262236" );
         }
 
         else
         {
             Serial.println( "lights on" );
-            uint8_t data[] = "262231";
-            rfTx->transmit( data );
+            rfTx->transmit( "262231" );
         }
 
         // Serial.print("Distance: ");
@@ -75,14 +73,14 @@ void setup() {
     pinMode( redLedPin, OUTPUT );
     pinMode( rfTxPin, OUTPUT );
 
+    rfTx = new Transmitter( rfTxPin, rfTxBaudrate );
+
     uSensor = new USensor( echoPin, trigPin );
     mqSensor = new MqSensor( mqSensorPin );
 
     // Leds
     greenLed = new Led( greenLedPin );
     redLed = new Led( redLedPin );
-
-    rfTx = new Transmitter( rfTxPin, rfTxBaudrate );
 
     Init( Core0, Core1 );
 }
