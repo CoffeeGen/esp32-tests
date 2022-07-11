@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "atomic": "cpp"
+        "atomic": "cpp",
+        "cstddef": "cpp",
+        "system_error": "cpp"
     }
 }

@@ -2,19 +2,18 @@
 #define TRANSMITTER_H
 
 #include <Arduino.h>
-#include <RH_ASK.h>
-#include <SPI.h>
+#include <RCSwitch.h>
 
 class Transmitter 
 {
     public:
-        Transmitter( int pin, int baudrate );
-        void transmit( const char* message );
+        Transmitter( int pin, int pulseLength );
+        void transmit( unsigned long code );
         bool success;
 
     private:
         int _pin;
-        RH_ASK  _driver;
+        RCSwitch  _switch;
 };
 
 #endif

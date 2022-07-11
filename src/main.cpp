@@ -2,6 +2,7 @@
 #include <init.h>
 #include <globals.h>
 
+
 #define echoPin         4 // 2
 #define trigPin         22 // 3
 #define greenLedPin     21 // 4
@@ -25,18 +26,18 @@ void Core0( void * parameter )
         int distance = uSensor->calcDistance();
         greenLed->trigger( distance < 5 );
 
-        Serial.println( rfTx->success ? "rftx success" : "rftx failed" );
+        // Serial.println( rfTx->success ? "rftx success" : "rftx failed" );
 
         if( distance > 5 )
         {
             Serial.println( "lights off" );
-            rfTx->transmit( "262236" );
+            rfTx->transmit( 262236 );
         }
 
         else
         {
             Serial.println( "lights on" );
-            rfTx->transmit( "262231" );
+            rfTx->transmit( 262231 );
         }
 
         // Serial.print("Distance: ");
@@ -73,7 +74,7 @@ void setup() {
     pinMode( redLedPin, OUTPUT );
     pinMode( rfTxPin, OUTPUT );
 
-    rfTx = new Transmitter( rfTxPin, rfTxBaudrate );
+    rfTx = new Transmitter( rfTxPin, 326 );
 
     uSensor = new USensor( echoPin, trigPin );
     mqSensor = new MqSensor( mqSensorPin );
