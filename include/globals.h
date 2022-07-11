@@ -25,4 +25,12 @@ Led* redLed;
 
 Transmitter* rfTx;
 
+enum eLightState
+{
+    Off,
+    On
+};
+
+eLightState lightState;
+
 #endif  //GLOBALS_H

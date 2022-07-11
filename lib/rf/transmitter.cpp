@@ -7,7 +7,7 @@ Transmitter::Transmitter( int pin, int pulseLength ) :
     _switch.enableTransmit(pin);
     _switch.setProtocol( 0, 326 );
   
-    _switch.setRepeatTransmit(30);
+    // _switch.setRepeatTransmit(5);
 
     // set pulse length.
     _switch.setPulseLength(pulseLength);
