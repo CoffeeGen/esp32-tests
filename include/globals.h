@@ -11,6 +11,7 @@
 #include <led.h>
 #include <mqsensor.h>
 #include <transmitter.h>
+#include <Servo.h>
 
 /* create an instance of Preferences library */
 Preferences preferences;
@@ -24,6 +25,8 @@ Led* greenLed;
 Led* redLed;
 
 Transmitter* rfTx;
+
+Servo servo;
 
 enum eLightState
 {

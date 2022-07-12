@@ -10,6 +10,7 @@
 #define mqSensorPin     0 // A0
 #define rfTxPin         23  // Pin of the 433MHz transmitter
 #define btnPin          15
+#define servoPin        14
 
 #define rfTxBaudrate    326 // Transmission Speed
 #define LIGHTS_ON       262231
@@ -57,6 +58,8 @@ void Core0( void * parameter )
                     Serial.println( "lights off" );
                     break;
             }
+
+            redLed->trigger( lightState == Off );
         }
 
         // Serial.print("Distance: ");
@@ -75,6 +78,18 @@ void Core1( void * parameter )
         // Distance Sensor - Green Led
         int distance = uSensor->calcDistance();
         greenLed->trigger( distance < 5 );
+
+        // for(int posDegrees = 0; posDegrees <= 180; posDegrees++) {
+        //     servo.write(posDegrees);
+        //     Serial.println(posDegrees);
+        //     delay(20);
+        // }
+
+        // for(int posDegrees = 180; posDegrees >= 0; posDegrees--) {
+        //     servo.write(posDegrees);
+        //     Serial.println(posDegrees);
+        //     delay(20);
+        // }
 
         // int state = digitalRead( btnPin );
 
@@ -117,6 +132,7 @@ void setup() {
     pinMode( redLedPin, OUTPUT );
     pinMode( rfTxPin, OUTPUT );
     pinMode(btnPin, INPUT);
+    pinMode( servoPin, OUTPUT );
 
     lightState = Off;
 
@@ -129,6 +145,16 @@ void setup() {
     // Leds
     greenLed = new Led( greenLedPin );
     redLed = new Led( redLedPin );
+
+    // Turn on when room lights are off
+    redLed->trigger( lightState == Off );
+
+    // servo.attach(
+    //     servoPin, 
+    //     Servo::CHANNEL_NOT_ATTACHED, 
+    //     45,
+    //     120
+    // );
 
     Init( Core0, Core1 );
 }
